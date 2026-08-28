@@ -29,4 +29,53 @@ main
     max-width: 1000px;
     margin: 0 auto;
 }
+#search-container
+{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+#username
+{
+    flex: 1;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+#analyze-button
+{
+    padding: 12px 20px;
+     font-size: 16px;
+     border: none;
+     border-radius: 6px;
+     background-color: #24292f;
+     color:white;
+     cursor: pointer;
+}
+#analyze-button:hover
+{
+    background-color: #444;
+}
+#result
+{
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+}
+#profile
+{
+    margin-bottom: 20px;
+}
+#profile h2
+{
+    margin: 0;
+}
+#profile p
+{
+    margin-top: 5px;
+    color: #666;
+}
+
 
