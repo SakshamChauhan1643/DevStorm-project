@@ -13,12 +13,35 @@ async function getRepositories() {
 
     const repositories = await response.json();
 
+
+    // 1. Get user's repositories
     repositories.forEach(repo => {
-    console.log(repo.name,repo.language);
-});
+        console.log(repo.name, repo.language);
+    });
 
 
-    // 2. Get user's commits
+    // 2. Get user's languages
+    const languages = {};
+
+    repositories.forEach(repo => {
+
+        const language = repo.language;
+
+        if (language) {
+            if (languages[language]) {
+                languages[language]++;
+            } else {
+                languages[language] = 1;
+            }
+        }
+
+    });
+
+    console.log("Languages:");
+    console.log(languages);
+
+
+    // 3. Get user's commits
     for (const repo of repositories) {
 
         const commitResponse = await fetch(
@@ -32,6 +55,9 @@ async function getRepositories() {
         commits.forEach(commit => {
             console.log(commit.commit.author.date);
         });
+
+        
+
     }
 
 }
