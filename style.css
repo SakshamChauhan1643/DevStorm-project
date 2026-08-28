@@ -77,5 +77,65 @@ main
     margin-top: 5px;
     color: #666;
 }
-
-
+#stats
+{
+    display: flex;
+    gap: 15px;
+}
+.stat-card
+{
+    flex: 1;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+}
+.stat-card h3
+{
+    margin-top: 0;
+    font-size: 16px;
+    color: #666;
+}
+.stat-card p 
+{
+    margin-bottom: 0;
+    font-size: 28px;
+    font-weight: bold;
+}
+#commit-activity 
+{
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+}
+#commit-activity h2 
+{
+    margin-top: 0;
+}
+#top-languages 
+{
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+}
+#top-languages h2 
+{
+    margin-top: 0;
+}
+#repo 
+{
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+}
+#repo h2 
+{
+    margin-top: 0;
+}
+#repository-list
+{
+    min-height: 100px;
+}
