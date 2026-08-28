@@ -1,7 +1,7 @@
 const usernameInput = document.getElementById("username");
-const searchBtn = document.getElementById("searchBtn");
+const analyze = document.getElementById("analyze-button");
 
-searchBtn.addEventListener("click", getRepositories);
+analyze.addEventListener("click", getRepositories);
 
 async function getRepositories() {
 
@@ -12,5 +12,11 @@ async function getRepositories() {
     );
 
     const repositories = await response.json();
-    
+
+    repositories.forEach(repo => {
+    console.log(repo.name,repo.language);
+
+
+});
+
 }
