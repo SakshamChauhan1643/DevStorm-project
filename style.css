@@ -1,0 +1,32 @@
+*
+{
+    box-sizing: border-box;
+}
+body
+{
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f5f7fa;
+    color: #222;
+}
+header
+{
+    text-align: center;
+    padding: 40px 20px 25px;
+}
+header h1
+{
+    margin: 0px;
+}
+header p
+{
+    margin-top: 10px;
+    color: #666;
+}
+main
+{
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
