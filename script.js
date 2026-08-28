@@ -15,8 +15,23 @@ async function getRepositories() {
 
     repositories.forEach(repo => {
     console.log(repo.name,repo.language);
-
-
 });
+
+
+    // 2. Get user's commits
+    for (const repo of repositories) {
+
+        const commitResponse = await fetch(
+            `https://api.github.com/repos/${username}/${repo.name}/commits?author=${username}`
+        );
+
+        const commits = await commitResponse.json();
+
+        console.log(`Commits in ${repo.name}:`);
+
+        commits.forEach(commit => {
+            console.log(commit.commit.author.date);
+        });
+    }
 
 }
