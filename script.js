@@ -7,6 +7,13 @@ async function getRepositories() {
 
     const username = usernameInput.value;
 
+    const profileResponse = await fetch(
+        `https://api.github.com/users/${username}`
+    );
+    const profile = await profileResponse.json();
+    document.getElementById("profile-name").textContent = profile.name;
+    document.getElementById("profile-username").textContent = profile.login;
+
     const response = await fetch(
         `https://api.github.com/users/${username}/repos`
     );
@@ -138,7 +145,7 @@ async function getRepositories() {
             else if (difference === 1) {
 
                 previousDate = currentDate;
-
+                streak++;
             }
             else {
 
