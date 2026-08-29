@@ -100,6 +100,23 @@ async function getRepositories() {
     const totalCommits = commitDates.length;
     document.getElementById("total-commits").textContent = totalCommits;
 
+    // Calculate commits per day
+
+    const commitsPerDay = {};
+
+    commitDates.forEach(date => {
+
+        const day = new Date(date)
+            .toISOString()
+            .split("T")[0];
+
+        if (commitsPerDay[day]) {
+            commitsPerDay[day]++;
+        } else {
+            commitsPerDay[day] = 1;
+        }
+
+    });
 
     // 5. Calculate user's streak
 
