@@ -70,6 +70,21 @@ async function getRepositories() {
         );
 
     }
+    const languageChart = document.getElementById("language-chart");
+
+    for (const language in languages) {
+
+        const count = languages[language];
+
+        const percentage = (count / totalRepositories) * 100;
+
+        const languageItem = document.createElement("div");
+
+        languageItem.textContent =
+            `${language}: ${percentage.toFixed(2)}%`;
+
+        languageChart.appendChild(languageItem);
+    }
 
 
     // 4. Get user's commits
@@ -117,6 +132,16 @@ async function getRepositories() {
         }
 
     });
+    const commitChart = document.getElementById("commit-chart");
+    for (const day in commitsPerDay) {
+
+    const bar = document.createElement("div");
+
+    bar.textContent = `${day}: ${commitsPerDay[day]} commits`;
+    bar.style.width = `${commitsPerDay[day] * 30}px`;
+
+    commitChart.appendChild(bar);
+    }
 
     // 5. Calculate user's streak
 
