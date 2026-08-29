@@ -10,9 +10,14 @@ async function getRepositories() {
     const profileResponse = await fetch(
         `https://api.github.com/users/${username}`
     );
+
     const profile = await profileResponse.json();
+
     document.getElementById("profile-name").textContent = profile.name;
     document.getElementById("profile-username").textContent = profile.login;
+
+
+    // Get user's repositories
 
     const response = await fetch(
         `https://api.github.com/users/${username}/repos`
@@ -70,24 +75,40 @@ async function getRepositories() {
         );
 
     }
-    const languageChart = document.getElementById("language-chart");
-
-    for (const language in languages) {
-
-        const count = languages[language];
-
-        const percentage = (count / totalRepositories) * 100;
-
-        const languageItem = document.createElement("div");
-
-        languageItem.textContent =
-            `${language}: ${percentage.toFixed(2)}%`;
-
-        languageChart.appendChild(languageItem);
-    }
 
 
-    // 4. Get user's commits
+    // 4. Create language pie chart
+
+    console.log("Languages for chart:", languages);
+
+    const languageLabels = Object.keys(languages);
+    const languageData = Object.values(languages);
+
+    const languageCanvas =
+        document.getElementById("language-pie-chart");
+
+    new Chart(languageCanvas, {
+
+        type: "pie",
+
+        data: {
+
+            labels: languageLabels,
+
+            datasets: [{
+                data: languageData
+            }]
+
+        },
+
+        options: {
+            responsive: true
+        }
+
+    });
+
+
+    // 5. Get user's commits
 
     const commitDates = [];
 
@@ -112,8 +133,13 @@ async function getRepositories() {
         });
 
     }
+
+
     const totalCommits = commitDates.length;
-    document.getElementById("total-commits").textContent = totalCommits;
+
+    document.getElementById("total-commits").textContent =
+        totalCommits;
+
 
     // Calculate commits per day
 
@@ -132,20 +158,30 @@ async function getRepositories() {
         }
 
     });
-    const commitChart = document.getElementById("commit-chart");
+
+
+    const commitChart =
+        document.getElementById("commit-chart");
+
     for (const day in commitsPerDay) {
 
-    const bar = document.createElement("div");
+        const bar = document.createElement("div");
 
-    bar.textContent = `${day}: ${commitsPerDay[day]} commits`;
-    bar.style.width = `${commitsPerDay[day] * 30}px`;
+        bar.textContent =
+            `${day}: ${commitsPerDay[day]} commits`;
 
-    commitChart.appendChild(bar);
+        bar.style.width =
+            `${commitsPerDay[day] * 30}px`;
+
+        commitChart.appendChild(bar);
+
     }
 
-    // 5. Calculate user's streak
+
+    // 6. Calculate user's streak
 
     // Remove duplicate commit days
+
     const uniqueDays = new Set();
 
     commitDates.forEach(date => {
@@ -160,21 +196,25 @@ async function getRepositories() {
 
 
     // Sort dates from newest to oldest
+
     const sortedDays = Array.from(uniqueDays)
         .sort()
         .reverse();
 
 
-    // Calculate streak
+    // Calculate current streak
+
     let streak = 0;
 
     if (sortedDays.length > 0) {
 
-        let previousDate = new Date(sortedDays[0]);
+        let previousDate =
+            new Date(sortedDays[0]);
 
         for (const day of sortedDays) {
 
-            const currentDate = new Date(day);
+            const currentDate =
+                new Date(day);
 
             const difference =
                 (previousDate - currentDate) /
@@ -190,6 +230,7 @@ async function getRepositories() {
 
                 previousDate = currentDate;
                 streak++;
+
             }
             else {
 
@@ -198,41 +239,85 @@ async function getRepositories() {
             }
 
         }
+
     }
 
-    console.log("Current streak:", streak, "days");
-    document.getElementById("current-streak").textContent = `${streak} days`;
+
+    console.log(
+        "Current streak:",
+        streak,
+        "days"
+    );
+
+    document.getElementById("current-streak").textContent =
+        `${streak} days`;
+
 
     // Calculate longest streak
+
     let longestStreak = 0;
     let currentStreak = 0;
 
     for (let i = 0; i < sortedDays.length; i++) {
 
         if (i === 0) {
+
             currentStreak = 1;
+
         } else {
 
-            const currentDate = new Date(sortedDays[i]);
-            const previousDate = new Date(sortedDays[i - 1]);
+            const currentDate =
+                new Date(sortedDays[i]);
+
+            const previousDate =
+                new Date(sortedDays[i - 1]);
 
             const difference =
                 (previousDate - currentDate) /
                 (1000 * 60 * 60 * 24);
 
+
             if (difference === 1) {
+
                 currentStreak++;
+
             } else {
+
                 currentStreak = 1;
+
             }
+
         }
 
+
         if (currentStreak > longestStreak) {
+
             longestStreak = currentStreak;
+
         }
+
     }
+
 
     document.getElementById("longest-streak").textContent =
         `${longestStreak} days`;
-    }
 
+
+    // 7. Display repositories
+
+    const repositoryList =
+        document.getElementById("repository-list");
+
+    repositories.forEach(repo => {
+
+        const repositoryItem =
+            document.createElement("div");
+
+        repositoryItem.textContent =
+            repo.name;
+
+        repositoryList.appendChild(repositoryItem);
+
+    });
+
+}

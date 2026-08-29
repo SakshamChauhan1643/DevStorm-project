@@ -1,9 +1,12 @@
+<!--commit activity, top languages and streaks-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js" defer></script>
     <title>Github Activity Analyzer</title>
 </head>
@@ -52,7 +55,7 @@
         <h2>Top Languages</h2>
         
         <div id="language-chart">
-            <!--Language chart will go here-->
+            <canvas id="language-pie-chart"></canvas>
         </div>
     </section>
     <section id="repo">
