@@ -97,6 +97,8 @@ async function getRepositories() {
         });
 
     }
+    const totalCommits = commitDates.length;
+    document.getElementById("total-commits").textContent = totalCommits;
 
 
     // 5. Calculate user's streak
@@ -157,6 +159,38 @@ async function getRepositories() {
     }
 
     console.log("Current streak:", streak, "days");
+    document.getElementById("current-streak").textContent = `${streak} days`;
 
-}
+    // Calculate longest streak
+    let longestStreak = 0;
+    let currentStreak = 0;
+
+    for (let i = 0; i < sortedDays.length; i++) {
+
+        if (i === 0) {
+            currentStreak = 1;
+        } else {
+
+            const currentDate = new Date(sortedDays[i]);
+            const previousDate = new Date(sortedDays[i - 1]);
+
+            const difference =
+                (previousDate - currentDate) /
+                (1000 * 60 * 60 * 24);
+
+            if (difference === 1) {
+                currentStreak++;
+            } else {
+                currentStreak = 1;
+            }
+        }
+
+        if (currentStreak > longestStreak) {
+            longestStreak = currentStreak;
+        }
+    }
+
+    document.getElementById("longest-streak").textContent =
+        `${longestStreak} days`;
+    }
 
